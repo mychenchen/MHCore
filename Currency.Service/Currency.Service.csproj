@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Currency.Common\Currency.Common.csproj" />
+    <ProjectReference Include="..\Currency.Models\Currency.Models.csproj" />
+    <ProjectReference Include="..\Currency.Repository\Currency.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.510" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.510" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Currency.Common\Currency.Common.csproj" />
+  </ItemGroup>
+
+</Project>
