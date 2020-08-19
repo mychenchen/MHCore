@@ -19,13 +19,13 @@ namespace Currency.Repository.DB_EF
 
         }
 
-        //#region 映射到数据库
+        #region 映射到数据库
 
-        ///// <summary>
-        ///// 系统用户表
-        ///// </summary>
-        //public DbSet<SystemUserEntity> User { get; set; }
+        /// <summary>
+        /// 系统用户表
+        /// </summary>
+        public DbSet<SystemUserEntity> User { get; set; }
 
-        //#endregion
+        #endregion
     }
 }

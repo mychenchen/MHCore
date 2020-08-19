@@ -211,6 +211,8 @@ namespace MH.WebApp
 
             #endregion
 
+            app.UseCors("allow_all");
+
             //自定义程序初始化地址
             app.UseEndpoints(endpoints =>
             {

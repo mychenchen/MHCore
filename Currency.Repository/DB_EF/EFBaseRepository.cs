@@ -22,15 +22,15 @@ namespace Currency.Repository
 
         public async Task<T> Insert(T entity)
         {
-            var model = await myDbContextRead.Set<T>().AddAsync(entity);
-            await myDbContextRead.SaveChangesAsync();
+            var model = await myDbContext.Set<T>().AddAsync(entity);
+            await myDbContext.SaveChangesAsync();
             return model.Entity;
         }
 
         public void Update(T entity)
         {
-            myDbContextRead.Set<T>().Update(entity);
-            myDbContextRead.SaveChanges();
+            myDbContext.Set<T>().Update(entity);
+            myDbContext.SaveChanges();
         }
 
         //public async Task<int> Update(Expression<Func<T, bool>> whereLambda, Expression<Func<T, T>> entity)
@@ -40,8 +40,8 @@ namespace Currency.Repository
 
         public void Delete(T entity)
         {
-            myDbContextRead.Set<T>().Remove(entity);
-            myDbContextRead.SaveChanges();
+            myDbContext.Set<T>().Remove(entity);
+            myDbContext.SaveChanges();
         }
         //public async Task<int> Delete(Expression<Func<T, bool>> whereLambda)
         //{
@@ -55,17 +55,17 @@ namespace Currency.Repository
 
         public async Task<T> GetEntity(Expression<Func<T, bool>> whereLambda)
         {
-            return await myDbContext.Set<T>().AsNoTracking().FirstOrDefaultAsync(whereLambda);
+            return await myDbContextRead.Set<T>().AsNoTracking().FirstOrDefaultAsync(whereLambda);
         }
 
         public async Task<List<T>> Select()
         {
-            return await myDbContext.Set<T>().ToListAsync();
+            return await myDbContextRead.Set<T>().ToListAsync();
         }
 
         public async Task<List<T>> Select(Expression<Func<T, bool>> whereLambda)
         {
-            return await myDbContext.Set<T>().Where(whereLambda).ToListAsync();
+            return await myDbContextRead.Set<T>().Where(whereLambda).ToListAsync();
         }
 
         public async Task<ServicePageResult<T>> Select<S>(int pageSize, int pageIndex, Expression<Func<T, bool>> whereLambda, Expression<Func<T, S>> orderByLambda, bool isAsc)
@@ -75,11 +75,11 @@ namespace Currency.Repository
                 PageIndex = pageIndex,
                 PageSize = pageSize
             };
-            res.TotalSize = await myDbContext.Set<T>().Where(whereLambda).CountAsync();
+            res.TotalSize = await myDbContextRead.Set<T>().Where(whereLambda).CountAsync();
 
             if (isAsc)
             {
-                var entities = await myDbContext.Set<T>().Where(whereLambda)
+                var entities = await myDbContextRead.Set<T>().Where(whereLambda)
                                       .OrderBy<T, S>(orderByLambda)
                                       .Skip(pageSize * (pageIndex - 1))
                                       .Take(pageSize).ToListAsync();
@@ -88,7 +88,7 @@ namespace Currency.Repository
             }
             else
             {
-                var entities = await myDbContext.Set<T>().Where(whereLambda)
+                var entities = await myDbContextRead.Set<T>().Where(whereLambda)
                                       .OrderByDescending<T, S>(orderByLambda)
                                       .Skip(pageSize * (pageIndex - 1))
                                       .Take(pageSize).ToListAsync();
