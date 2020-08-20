@@ -111,15 +111,15 @@ namespace MH.WebApp
 
             services.AddCors(options =>
             {
-                options.AddPolicy("allow_all", q =>
+                options.AddPolicy("any", q =>
                 {
-                    //buildler.WithOrigins("http://localhost:49554")
                     q
-                    .SetIsOriginAllowed(origin => true)
-                    //.AllowAnyOrigin() //允许任何来源的主机访问  SignalR 2.2不允许使用 
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();//指定处理cookie
+                      //q.WithOrigins("http://localhost:49554")
+                      //.SetIsOriginAllowed(origin => true)
+                      .AllowAnyOrigin() //允许任何来源的主机访问  SignalR 2.2不允许使用 
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials();//指定处理cookie
                 });
             });
 
@@ -215,7 +215,7 @@ namespace MH.WebApp
 
             #endregion
 
-            app.UseCors("allow_all");
+            //app.UseCors("any");
 
             //自定义程序初始化地址
             app.UseEndpoints(endpoints =>

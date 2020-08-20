@@ -19,7 +19,6 @@ namespace MH.WebApp.Controllers.API
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [EnableCors("allow_all")]
     public class SystemUserController : BaseController
     {
         protected readonly ISystemUserDAL _user;
