@@ -22,8 +22,11 @@ namespace Currency.Common
             encoderSettings.AllowRanges(UnicodeRanges.All);
             var options = new JsonSerializerOptions();
             options.Encoder = JavaScriptEncoder.Create(encoderSettings);
-            options.Converters.Add(new DateTimeTxtConverter());
-            options.WriteIndented = true;
+
+            //此处不用去除T,如果去除T后,json解析会出错,system.text.json 只识别带有T的时间格式
+            //options.Converters.Add(new DateTimeTxtConverter()); 
+
+            //options.WriteIndented = true;
             return Json == null ? null : JsonSerializer.Serialize(Json, options);
         }
         public static T ToObject<T>(this string Json)

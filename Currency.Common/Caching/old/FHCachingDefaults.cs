@@ -1,4 +1,4 @@
-﻿namespace Currency.Common.Caching
+﻿namespace Currency.Common.Caching.old
 {
     /// <summary>
     /// Represents default values related to caching
@@ -13,6 +13,6 @@
         /// <summary>
         /// Gets the key used to store the protection key list to Redis (used with the PersistDataProtectionKeysToRedis option enabled)
         /// </summary>
-        public static string RedisDataProtectionKey => "FH.DataProtectionKeys";
+        public static string RedisDataProtectionKey => "Currency.Common.DataProtectionKeys";
     }
 }

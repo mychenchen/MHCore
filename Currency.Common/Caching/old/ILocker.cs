@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Currency.Common.Caching
+namespace Currency.Common.Caching.old
 {
     public interface ILocker
     {

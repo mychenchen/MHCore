@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace Currency.Common.Caching
+namespace Currency.Common.Caching.old
 {
     public partial class MemoryCacheManager : ILocker, IStaticCacheManager
     {

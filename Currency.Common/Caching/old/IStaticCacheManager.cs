@@ -1,4 +1,4 @@
-﻿namespace Currency.Common.Caching
+﻿namespace Currency.Common.Caching.old
 {
     /// <summary>
     /// Represents a manager for caching between HTTP requests (long term caching)

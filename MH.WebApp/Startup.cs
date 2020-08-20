@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Crm.WebApp.AuthorizeHelper;
+using Currency.Common.Caching;
 using Currency.Common.DI;
 using Currency.Common.DIRegister;
 using Currency.Common.Redis;
@@ -151,11 +152,14 @@ namespace MH.WebApp
 
             #region 注入自定义构造函数
 
-            //注入微信帮助类
-            services.AddScoped<BasicApi>();
+            //注入微信帮助类-单例
+            services.AddSingleton<BasicApi>();
 
-            //注入redis帮助类
-            services.AddScoped<RedisManager>();
+            //注入redis帮助类-单例
+            services.AddSingleton<RedisManager>();
+
+            //注入cache缓存类-单例
+            services.AddSingleton<CoreMemoryCache>();
 
             #endregion
 
