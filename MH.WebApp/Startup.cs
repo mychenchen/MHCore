@@ -1,10 +1,13 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Crm.WebApp.AuthorizeHelper;
+using Currency.Aop;
 using Currency.Common.Caching;
 using Currency.Common.DI;
 using Currency.Common.DIRegister;
+using Currency.Common.LogManange;
 using Currency.Common.Redis;
 using Currency.Repository.DB_EF;
 using Currency.Weixin;
@@ -25,6 +28,7 @@ using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text.Encodings.Web;
@@ -86,6 +90,24 @@ namespace MH.WebApp
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             #endregion
+
+            //#region AOP切面-注入
+
+            ////注册用户维护业务层
+            //var basePath = AppContext.BaseDirectory;
+            //var serviceDll = Path.Combine(basePath, "Currency.Aop");
+
+            //if (File.Exists(serviceDll))
+            //{
+            //    ////注册AOP拦截器
+            //    //services.RegisterType(typeof(OnLogExecuting));
+            //    services.RegisterAssemblyTypes(Assembly.LoadFrom(serviceDll))
+            //        .AsImplementedInterfaces()
+            //        .EnableInterfaceInterceptors()//开启切面，需要引入Autofac.Extras.DynamicProxy
+            //        .InterceptedBy(typeof(UserAop));//指定拦截器，可以指定多个
+
+            //}
+            //#endregion
 
             #region Swagger接口管理
 
@@ -214,6 +236,8 @@ namespace MH.WebApp
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value);
 
             #endregion
+
+            LogHelper.Configure(); //使用前先配置
 
             //app.UseCors("any");
 

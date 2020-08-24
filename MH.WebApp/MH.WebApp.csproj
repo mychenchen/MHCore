@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Currency.Aop\Currency.Aop.csproj" />
     <ProjectReference Include="..\Currency.Common\Currency.Common.csproj" />
     <ProjectReference Include="..\Currency.Service\Currency.Service.csproj" />
     <ProjectReference Include="..\Currency.Weixin\Currency.Weixin.csproj" />

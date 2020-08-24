@@ -41,7 +41,7 @@ namespace Crm.WebApp.AuthorizeHelper
             }
 
 
-            //base.OnActionExecuting(filterContext);
+            //base.OnActionExecuting(context);
 
 
             //filterContext.HttpContext.Response.Write("<br />" + "执行OnActionExecuting：" + Message + "<br />");

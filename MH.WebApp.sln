@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Currency.Weixin", "Currency
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MH.WebApp", "MH.WebApp\MH.WebApp.csproj", "{CA7D7C29-B1BA-4D28-BF65-7AF1A94A017E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Currency.Aop", "Currency.Aop\Currency.Aop.csproj", "{45B8C910-B439-4518-83A8-D2129EDD65E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{CA7D7C29-B1BA-4D28-BF65-7AF1A94A017E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA7D7C29-B1BA-4D28-BF65-7AF1A94A017E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA7D7C29-B1BA-4D28-BF65-7AF1A94A017E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B8C910-B439-4518-83A8-D2129EDD65E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B8C910-B439-4518-83A8-D2129EDD65E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B8C910-B439-4518-83A8-D2129EDD65E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B8C910-B439-4518-83A8-D2129EDD65E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
