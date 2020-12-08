@@ -92,7 +92,7 @@ namespace Currency.Repository
                                       .OrderByDescending<T, S>(orderByLambda)
                                       .Skip(pageSize * (pageIndex - 1))
                                       .Take(pageSize).ToListAsync();
-
+                res.List = entities;
                 return res;
             }
         }
