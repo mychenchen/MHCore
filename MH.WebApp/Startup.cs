@@ -11,7 +11,9 @@ using Currency.Common.LogManange;
 using Currency.Common.Redis;
 using Currency.Repository.DB_EF;
 using Currency.Weixin;
+using IdentityModel;
 using MH.WebApp.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
@@ -31,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using static Currency.Common.SystemTextJsonConvert;
@@ -39,6 +43,7 @@ namespace MH.WebApp
 {
     public class Startup
     {
+        public static SymmetricSecurityKey symmetricKey;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -53,6 +58,19 @@ namespace MH.WebApp
 
             services.Configure<WebAppSetting>(Configuration.GetSection("WebAppSetting")).AddMvc();
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting")).AddMvc();
+
+            #endregion
+
+            #region 注入自定义构造函数
+
+            //注入微信帮助类-单例
+            services.AddSingleton<BasicApi>();
+
+            //注入redis帮助类-单例
+            services.AddSingleton<RedisManager>();
+
+            //注入cache缓存类-单例
+            services.AddSingleton<CoreMemoryCache>();
 
             #endregion
 
@@ -74,15 +92,6 @@ namespace MH.WebApp
 
             //services.AutoRegisterServicesFromAssembly("Currency.Service");
             services.AddAssembly("Currency.Service");
-            #endregion
-
-            #region 全局控制器与api控制器拦截
-
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(AuthorizeLogin));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
             #endregion
 
             #region AutoMapper模型映射
@@ -172,16 +181,50 @@ namespace MH.WebApp
             //启动mq消息接收程序
             //DI.GetService<IMqReceive>().ReceiveAll();
 
-            #region 注入自定义构造函数
+            #region JWT验证
 
-            //注入微信帮助类-单例
-            services.AddSingleton<BasicApi>();
+            var webSetting = Configuration.GetSection("WebAppSetting");
+            //生成密钥
+            var keyByteArray = Encoding.ASCII.GetBytes(webSetting.GetValue<string>("JwtSecret"));
+            symmetricKey = new SymmetricSecurityKey(keyByteArray);
 
-            //注入redis帮助类-单例
-            services.AddSingleton<RedisManager>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(o =>
+            {
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = JwtClaimTypes.Name,
+                    RoleClaimType = JwtClaimTypes.Role,
 
-            //注入cache缓存类-单例
-            services.AddSingleton<CoreMemoryCache>();
+                    ValidIssuer = webSetting.GetValue<string>("JwtIss"), //发行人
+                    ValidAudience = webSetting.GetValue<string>("JwtAud"),  //订阅人
+                    IssuerSigningKey = symmetricKey
+
+
+                    /***********************************TokenValidationParameters的参数默认值***********************************/
+                    // RequireSignedTokens = true,
+                    // SaveSigninToken = false,
+                    // ValidateActor = false,
+                    // 将下面两个参数设置为false，可以不验证Issuer和Audience，但是不建议这样做。
+                    // ValidateAudience = true,
+                    // ValidateIssuer = true, 
+                    // ValidateIssuerSigningKey = false,
+                    // 是否要求Token的Claims中必须包含Expires
+                    // RequireExpirationTime = true,
+                    // 允许的服务器时间偏移量
+                    // ClockSkew = TimeSpan.FromSeconds(300),
+                    // 是否验证Token有效期，使用当前时间与Token的Claims中的NotBefore和Expires对比
+                    // ValidateLifetime = true
+                };
+            });
+            #endregion
+
+            #region 全局控制器与api控制器拦截
+
+            services.AddMvc(options =>
+            {
+                //options.Filters.Add(typeof(AuthorizeLogin)); 开启后,可使用 jwt 替换token 
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             #endregion
 
@@ -217,6 +260,7 @@ namespace MH.WebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             #region 启动 默认数据 添加程序
