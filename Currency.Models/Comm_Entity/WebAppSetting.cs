@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MH.WebApp.Models
+﻿namespace Currency.Models.Comm_Entity
 {
     /// <summary>
     /// 配置项实体

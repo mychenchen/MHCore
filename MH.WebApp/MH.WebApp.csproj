@@ -2,12 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>f60bf9f7-bd93-4d3f-8ec9-3b98bc164192</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\MH.WebApp.xml</DocumentationFile>
-    <OutputPath>bin\Debug</OutputPath>
+    <DocumentationFile>bin\Swagger\MH.WebApp.xml</DocumentationFile>
+    <OutputPath>bin\Swagger</OutputPath>
     <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Swagger</OutputPath>
+    <DocumentationFile>bin\Swagger\MH.WebApp.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +41,12 @@
     <PackageReference Include="Senparc.Weixin.MP" Version="16.10.510" />
     <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.510" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 

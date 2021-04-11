@@ -9,16 +9,6 @@ namespace Currency.Repository.DB_EF
     /// </summary>
     public class MyDbContext : DbContext
     {
-        //private DbConnection _connection;
-        //public MyDbContext(DbConnection connection)
-        //{
-        //    _connection = connection;
-        //}
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(_connection);
-        //}
-
         /// <summary>
         /// 主库(写库)
         /// </summary>

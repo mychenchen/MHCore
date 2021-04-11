@@ -1,12 +1,7 @@
 ﻿using Currency.Models.DB_Entity;
-using Currency.Repository;
 using Currency.Repository.DB_EF;
 using Currency.Service.IService;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
-using static Currency.Common.NetCoreDIModuleRegister;
 
 namespace Currency.Service
 {

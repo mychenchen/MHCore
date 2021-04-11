@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Currency.Models
@@ -12,6 +13,7 @@ namespace Currency.Models
         /// 主键Id
         /// </summary>
         [Key]
+        [SugarColumn(IsPrimaryKey = true)]
         public Guid Id { get; set; }
 
         /// <summary>

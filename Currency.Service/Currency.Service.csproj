@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ServicePageResult.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Currency.Common\Currency.Common.csproj" />
     <ProjectReference Include="..\Currency.Models\Currency.Models.csproj" />
     <ProjectReference Include="..\Currency.Repository\Currency.Repository.csproj" />

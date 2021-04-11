@@ -1,14 +1,16 @@
-﻿using Currency.Repository.DB_EF;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Currency.Repository
+namespace Currency.Repository.DB_EF
 {
+    /// <summary>
+    /// EF通用实现接口
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class EFBaseRepository<T> where T : class, new()
     {
         protected readonly MyDbContext myDbContext;
@@ -92,6 +94,7 @@ namespace Currency.Repository
                                       .OrderByDescending<T, S>(orderByLambda)
                                       .Skip(pageSize * (pageIndex - 1))
                                       .Take(pageSize).ToListAsync();
+                res.List = entities;
 
                 return res;
             }

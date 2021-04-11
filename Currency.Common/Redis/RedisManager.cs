@@ -19,7 +19,7 @@ namespace Currency.Common.Redis
     {
         public int DbNum;
         public ConnectionMultiplexer _conn;
-        public string RedisConnection = "127.0.0.1,password=12345";
+        public string RedisConnection = "134.175.30.213:6379,password=chenhao";
 
         #region 构造函数
         public RedisManager()

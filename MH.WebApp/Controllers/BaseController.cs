@@ -92,17 +92,18 @@ namespace MH.WebApp.Controllers
         /// <summary>
         /// 分页列表返回
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <param name="count"></param>
-        /// <param name="list"></param>
+        /// <param name="page">条数</param>
+        /// <param name="rows">页码</param>
+        /// <param name="count">总条数</param>
+        /// <param name="list">结果集合</param>
+        /// <param name="msg"></param>
         /// <returns></returns>
-        protected ResultObject SuccessPage(int page, int rows, int count, object list)
+        protected ResultObject SuccessPage(int page, int rows, int count, object list, string msg = "查询成功")
         {
             ResultObject res = new ResultObject()
             {
                 code = (int)ErrorCode.Success,
-                message = "查询成功",
+                message = msg,
                 resultTime = DateTime.Now,
                 data = new
                 {

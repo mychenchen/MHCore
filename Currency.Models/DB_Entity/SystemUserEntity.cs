@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,8 +11,19 @@ namespace Currency.Models.DB_Entity
     /// 系统用户表
     /// </summary>
     [Table("User")]
-    public class SystemUserEntity: BaseEntity
+    [SugarTable("User")]
+    public class SystemUserEntity : BaseEntity
     {
+        /// <summary>
+        /// 标签ID
+        /// </summary>
+        public Guid LabelId { get; set; }
+
+        /// <summary>
+        /// 角色ID
+        /// </summary>
+        public Guid RoleId { get; set; }
+
         /// <summary>
         /// 昵称
         /// </summary>
@@ -41,14 +53,24 @@ namespace Currency.Models.DB_Entity
         public string Salt { get; set; }
 
         /// <summary>
-        /// 创建时间
+        /// 修改时间
         /// </summary>
-        public DateTime? UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
 
         /// <summary>
-        /// 最近一次登陆时间
+        /// 自我介绍
         /// </summary>
-        public DateTime? LastLoginTime { get; set; }
+        public string MyIntroduce { get; set; }
 
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public int Sex { get; set; }
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        [StringLength(200)]
+        public string HeadImg { get; set; }
     }
 }

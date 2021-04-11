@@ -25,7 +25,6 @@ namespace Currency.Repository.DB_EF
                    new SystemUserEntity()
                    {
                        CreateTime = DateTime.Now,
-                       LastLoginTime = DateTime.Now,
                        UpdateTime = DateTime.Now,
                        Id = Guid.NewGuid(),
                        LoginName = "admin",
