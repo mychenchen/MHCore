@@ -11,6 +11,16 @@
         public bool IsDebug { get; set; }
 
         /// <summary>
+        /// Redis - db数据库
+        /// </summary>
+        public int RedisDbNum { get; set; }
+
+        /// <summary>
+        /// Redis链接
+        /// </summary>
+        public string RedisConnection { get; set; }
+
+        /// <summary>
         /// 密钥
         /// </summary>
         public string JwtSecret { get; set; }

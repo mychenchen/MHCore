@@ -9,6 +9,7 @@ using Currency.Common.DI;
 using Currency.Common.DIRegister;
 using Currency.Common.LogManange;
 using Currency.Common.Redis;
+using Currency.Models.Comm_Entity;
 using Currency.Repository.DB_EF;
 using Currency.Weixin;
 using IdentityModel;
@@ -56,8 +57,9 @@ namespace MH.WebApp
         {
             #region app.config配置项
 
-            services.Configure<WebAppSetting>(Configuration.GetSection("WebAppSetting")).AddMvc();
-            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting")).AddMvc();
+            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+            services.Configure<WebAppSetting>(Configuration.GetSection("WebAppSetting"));
+            services.Configure<SugarConfigSetting>(Configuration.GetSection("SugarSettings"));
 
             #endregion
 
@@ -247,11 +249,17 @@ namespace MH.WebApp
             //开启后,可直接访问静态页面,静态文件
             app.UseStaticFiles();
 
+            var pathFile = Directory.GetCurrentDirectory() + @"/uploads";
+            if (!Directory.Exists(pathFile))
+            {
+                Directory.CreateDirectory(pathFile);
+            }
+
             //自定义资源
             app.UseStaticFiles(new StaticFileOptions
             {
                 //资源所在的绝对路径。
-                FileProvider = new PhysicalFileProvider(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "uploads")),
+                FileProvider = new PhysicalFileProvider(pathFile),
                 //表示访问路径,必须'/'开头
                 RequestPath = "/uploads"
             });

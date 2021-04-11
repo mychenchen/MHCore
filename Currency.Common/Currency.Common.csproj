@@ -37,4 +37,8 @@
     <Folder Include="Caching\old\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Currency.Models\Currency.Models.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -23,22 +23,22 @@ namespace MH.WebApp.Controllers.API
         protected readonly ISystemUserDAL _user;
         protected readonly ISugarSystemUserDAL _sUser;
         public readonly BasicApi _basicApi;
-        //public readonly RedisManager _redisManager;
+        public readonly RedisManager _redisManager;
         public readonly CoreMemoryCache _cache;
         public SystemUserController(
             IMapper map,
             ISystemUserDAL systemUserDAL,
             ISugarSystemUserDAL sUser,
             BasicApi basicApi,
-            //RedisManager redisManager,
+            RedisManager redisManager,
             CoreMemoryCache cache
             ) : base(map)
         {
             _user = systemUserDAL;
             _sUser = sUser;
             _basicApi = basicApi;
-            //redisManager.DbNum = 2;
-            //_redisManager = redisManager;
+            //redisManager.DbNum = 2;设置当前页面的默认数据库
+            _redisManager = redisManager;
             _cache = cache;
         }
 
@@ -90,40 +90,41 @@ namespace MH.WebApp.Controllers.API
         }
 
 
-        ///// <summary>
-        ///// 设置redis缓存
-        ///// </summary>
-        ///// <param name="key"></param>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //[HttpGet, NoSign]
-        //public ResultObject SaveRedisValue(string key, string value)
-        //{
-        //    //_basicApi.GetAccessToken();
-        //    var model = new user
-        //    {
-        //        name = value,
-        //        sex = 17,
-        //        time = DateTime.Now
-        //    };
-        //    _redisManager.DbNum = 1;
-        //    var flag = _redisManager.StringSet(key, model);
+        /// <summary>
+        /// 设置redis缓存
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpGet, NoSign]
+        public ResultObject SaveRedisValue(string key, string value)
+        {
+            //_basicApi.GetAccessToken();
+            var model = new user
+            {
+                name = value,
+                sex = 17,
+                time = DateTime.Now
+            };
+            //将数据存到1库
+            _redisManager.DbNum = 1;
+            var flag = _redisManager.StringSet(key, model);
 
-        //    return Success("保存成功:" + flag);
-        //}
+            return Success("保存成功:" + flag);
+        }
 
-        ///// <summary>
-        ///// 获取redis缓存
-        ///// </summary>
-        ///// <param name="key"></param>
-        ///// <returns></returns>
-        //[HttpGet, NoSign]
-        //public ResultObject PullRedisValue(string key)
-        //{
-        //    var flag = _redisManager.StringGet<user>(key);
+        /// <summary>
+        /// 获取redis缓存
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpGet, NoSign]
+        public ResultObject PullRedisValue(string key)
+        {
+            var flag = _redisManager.StringGet<user>(key);
 
-        //    return Success(flag);
-        //}
+            return Success(flag);
+        }
 
         /// <summary>
         /// 设置cache缓存

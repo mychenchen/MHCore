@@ -1,7 +1,7 @@
 ﻿using Crm.WebApp.AuthorizeHelper;
 using Currency.Common.HttpHelperFile;
+using Currency.Models.Comm_Entity;
 using IdentityModel;
-using MH.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

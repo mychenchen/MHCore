@@ -1,4 +1,7 @@
-﻿using StackExchange.Redis;
+﻿
+using Currency.Models.Comm_Entity;
+using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,13 +22,15 @@ namespace Currency.Common.Redis
     {
         public int DbNum;
         public ConnectionMultiplexer _conn;
-        public string RedisConnection = "134.175.30.213:6379,password=chenhao";
+        //public string RedisConnection = "134.175.30.213:6379,password=chenhao";
 
         #region 构造函数
-        public RedisManager()
+        public RedisManager(IOptions<WebAppSetting> options)
         {
-            _conn = ConnectionMultiplexer.Connect(RedisConnection);
+            DbNum = options.Value.RedisDbNum;
+            _conn = ConnectionMultiplexer.Connect(options.Value.RedisConnection);
         }
+
         #endregion 构造函数
 
         #region String
